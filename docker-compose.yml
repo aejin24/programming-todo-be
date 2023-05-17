@@ -1,0 +1,14 @@
+version: "3.3"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: coding-diary-db
+    restart: "unless-stopped"
+    env_file:
+      - .env
+    ports:
+      - "13306:3306"
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/initdb.d:/docker-entrypoint-initdb.d
