@@ -7,7 +7,9 @@
     "baseUrl": ".",
     "paths": {
       "types/*": ["src/types/*"],
-      "constants/*": ["src/constants/*"]
+      "constants/*": ["src/constants/*"],
+      "database/*": ["src/database/*"],
+      "models/*": ["src/models/*"]
     },
     "outDir": "dist",
     "esModuleInterop": true,
