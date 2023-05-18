@@ -55,8 +55,8 @@ authRouter.post(
         return res.status(StatusCodes.OK).json({
           status: StatusCodes.OK,
           data: {
-            access_token,
-            token_type,
+            token: access_token,
+            tokenType: token_type,
           },
         });
       })

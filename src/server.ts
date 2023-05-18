@@ -22,7 +22,7 @@ server.use(
   (err: TMiddleWareError, _: Request, res: Response, __: NextFunction) => {
     logger.err(err.data, true);
 
-    return res.status(StatusCodes.BAD_REQUEST).json(err);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(err);
   }
 );
 

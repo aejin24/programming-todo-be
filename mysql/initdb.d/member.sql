@@ -1,7 +1,8 @@
 CREATE TABLE IF NOT EXISTS member
 (
+  id INT NOT NULL,
   email VARCHAR(50) NOT NULL,
-  password VARCHAR(50),
-  nickname VARCHAR(50) NOT NULL,
-  PRIMARY KEY (email)
+  name VARCHAR(50) NOT NULL,
+  repository VARCHAR(100) NOT NULL,
+  PRIMARY KEY (id),
 );
