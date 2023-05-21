@@ -8,6 +8,9 @@ import DB from "models/index";
 
 const authRouter = Router();
 
+/**
+ * @description github token 발급
+ */
 authRouter.post(
   "/github",
   async (req: Request, res: Response, next: NextFunction) => {
@@ -67,8 +70,11 @@ authRouter.post(
   }
 );
 
+/**
+ * @description 멤버 테이블에 정보가 없다면 정보 자동 입력
+ */
 authRouter.post(
-  "/history",
+  "/register",
   async (req: Request, res: Response, next: NextFunction) => {
     const { id, email, name, repository } = req.body as TMember;
 
@@ -81,7 +87,6 @@ authRouter.post(
 
     try {
       const chkId = await DB.member.findOne({ where: { id } });
-      // 아이디가 없다면 멤버 테이블에 정보 넣기
       if (chkId === null) {
         await DB.member.create({
           id,
@@ -91,13 +96,9 @@ authRouter.post(
         });
       }
 
-      // TO-BE: 정보 조회
-
       return res.status(StatusCodes.OK).json({
         status: StatusCodes.OK,
-        data: {
-          list: ["something"],
-        },
+        data: { result: true },
       });
     } catch (error) {
       next({ status: ErrorCode.INTERNAL_SERVER_ERROR, data: error });

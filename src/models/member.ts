@@ -20,7 +20,6 @@ export default function (sequelize: Sequelize) {
         type: DataTypes.STRING(50),
         allowNull: false,
       },
-
       name: {
         type: DataTypes.STRING(50),
         allowNull: false,
