@@ -68,7 +68,7 @@ authRouter.post(
 );
 
 authRouter.post(
-  "/getInfo",
+  "/history",
   async (req: Request, res: Response, next: NextFunction) => {
     const { id, email, name, repository } = req.body as TMember;
 
