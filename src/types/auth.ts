@@ -8,3 +8,10 @@ export type TGithubResponse = {
   access_token?: string;
   token_type?: string;
 };
+
+export type TMember = {
+  id: number;
+  email: string;
+  name: string;
+  repository: string;
+};
