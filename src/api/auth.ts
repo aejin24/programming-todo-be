@@ -47,9 +47,13 @@ authRouter.post(
         if (error && error_description) {
           next({
             status:
-              ErrorCode[`ERR_${error.toUpperCase()}` as keyof typeof ErrorCode],
+              ErrorCode[
+                `ERR_${error.toUpperCase()}` as keyof typeof ErrorCode
+              ] || ErrorCode.INTERNAL_SERVER_ERROR,
             data: ErrorMessage[
-              ErrorCode[`ERR_${error.toUpperCase()}` as keyof typeof ErrorCode]
+              ErrorCode[
+                `ERR_${error.toUpperCase()}` as keyof typeof ErrorCode
+              ] || ErrorCode.INTERNAL_SERVER_ERROR
             ],
           });
 
