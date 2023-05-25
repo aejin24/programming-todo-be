@@ -11,6 +11,7 @@ export type TGithubResponse = {
 
 export type TMember = {
   id: number;
+  login: string;
   email: string;
   name: string;
   repository: string;

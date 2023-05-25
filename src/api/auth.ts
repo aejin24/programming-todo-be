@@ -80,9 +80,9 @@ authRouter.post(
 authRouter.post(
   "/register",
   async (req: Request, res: Response, next: NextFunction) => {
-    const { id, email, name, repository } = req.body as TMember;
+    const { id, login, email, name, repository } = req.body as TMember;
 
-    if (!id || !email || !name || !repository) {
+    if (!id || !login || !email || !name || !repository) {
       next({
         status: ErrorCode.INVALID_ARGUMENT,
         data: ErrorMessage[ErrorCode.INVALID_ARGUMENT],
@@ -94,6 +94,7 @@ authRouter.post(
       if (chkId === null) {
         await DB.member.create({
           id,
+          login,
           email,
           name,
           repository,
