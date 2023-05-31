@@ -1,7 +1,9 @@
-import { ErrorCode, ErrorMessage } from "constants/errorCode";
 import { NextFunction, Request, Response, Router } from "express";
+import { Op, where, col, fn } from "sequelize";
 import { StatusCodes } from "http-status-codes";
+
 import DB from "models/index";
+import { ErrorCode, ErrorMessage } from "constants/errorCode";
 import { TPlanWriteRequest } from "types/plan";
 
 const planRouter = Router();
@@ -10,9 +12,10 @@ const planRouter = Router();
  * @description 할 일 조회
  */
 planRouter.get(
-  "/history/:memberId",
+  "/:memberId",
   async (req: Request, res: Response, next: NextFunction) => {
     const { memberId } = req.params;
+    const { year, month } = req.query;
 
     if (!memberId) {
       next({
@@ -23,7 +26,13 @@ planRouter.get(
 
     try {
       const historyList = await DB.plan.findAll({
-        where: { member_id: memberId },
+        where: {
+          [Op.and]: [
+            where(fn("year", col("register_date")), year),
+            where(fn("month", col("register_date")), month),
+            { member_id: memberId },
+          ],
+        },
       });
 
       return res.status(StatusCodes.OK).json({
