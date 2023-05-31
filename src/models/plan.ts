@@ -2,9 +2,9 @@ import { DataTypes, Model, Sequelize } from "sequelize";
 import { TPlan } from "types/plan";
 
 class PlanModel extends Model<TPlan> {
-  public id!: number;
+  public id?: number;
   public content!: string;
-  public repository_id!: number;
+  public repository!: string;
   public register_date!: number;
   public member_id!: number;
 }
@@ -16,13 +16,14 @@ export default function (sequelize: Sequelize) {
         type: DataTypes.MEDIUMINT,
         allowNull: false,
         primaryKey: true,
+        autoIncrement: true,
       },
       content: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      repository_id: {
-        type: DataTypes.INTEGER,
+      repository: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
       register_date: {

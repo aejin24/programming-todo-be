@@ -1,7 +1,10 @@
 export type TPlan = {
-  id: number;
+  id?: number;
+} & TPlanWriteRequest;
+
+export type TPlanWriteRequest = {
   content: string;
-  repository_id: number;
+  repository: string;
   register_date: string;
   member_id: number;
 };

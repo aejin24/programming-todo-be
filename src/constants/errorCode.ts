@@ -8,6 +8,9 @@ enum ErrorCode {
 
   // github
   ERR_BAD_VERIFICATION_CODE = 1000,
+
+  // mysql
+  ERR_INSERT_DATA_FAIL = 2000,
 }
 
 const ErrorMessage: Record<number, string> = {
@@ -20,6 +23,9 @@ const ErrorMessage: Record<number, string> = {
 
   // github
   [ErrorCode.ERR_BAD_VERIFICATION_CODE]: "code 정보가 유효하지 않습니다.",
+
+  // mysql
+  [ErrorCode.ERR_INSERT_DATA_FAIL]: "신규 데이터 삽입 실패",
 };
 
 export { ErrorCode, ErrorMessage };
