@@ -28,9 +28,7 @@ planRouter.get(
 
       return res.status(StatusCodes.OK).json({
         status: StatusCodes.OK,
-        data: {
-          list: historyList,
-        },
+        data: historyList,
       });
     } catch (error) {
       next({ status: ErrorCode.INTERNAL_SERVER_ERROR, data: error });
