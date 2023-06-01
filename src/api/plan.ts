@@ -66,6 +66,7 @@ planRouter.post(
         content,
         repository,
         register_date,
+        status: 0,
         member_id,
       });
 

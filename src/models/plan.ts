@@ -30,6 +30,11 @@ export default function (sequelize: Sequelize) {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      status: {
+        // 0: 완료 X, 1: 완료 O
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
       member_id: {
         type: DataTypes.STRING,
         allowNull: false,

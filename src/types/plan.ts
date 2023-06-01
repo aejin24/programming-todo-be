@@ -1,5 +1,6 @@
 export type TPlan = {
   id?: number;
+  status: number;
 } & TPlanWriteRequest;
 
 export type TPlanWriteRequest = {
