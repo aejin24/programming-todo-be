@@ -11,6 +11,8 @@ enum ErrorCode {
 
   // mysql
   ERR_INSERT_DATA_FAIL = 2000,
+  ERR_UPDATE_DATA_FAIL = 2001,
+  ERR_DELETE_DATA_FAIL = 2002,
 }
 
 const ErrorMessage: Record<number, string> = {
@@ -26,6 +28,8 @@ const ErrorMessage: Record<number, string> = {
 
   // mysql
   [ErrorCode.ERR_INSERT_DATA_FAIL]: "신규 데이터 삽입 실패",
+  [ErrorCode.ERR_UPDATE_DATA_FAIL]: "데이터 업데이트 실패",
+  [ErrorCode.ERR_DELETE_DATA_FAIL]: "데이터 삭제 실패",
 };
 
 export { ErrorCode, ErrorMessage };

@@ -4,7 +4,7 @@ import { StatusCodes } from "http-status-codes";
 
 import DB from "models/index";
 import { ErrorCode, ErrorMessage } from "constants/errorCode";
-import { TPlanWriteRequest } from "types/plan";
+import { TPlan, TPlanWriteRequest } from "types/plan";
 
 const planRouter = Router();
 
@@ -12,12 +12,12 @@ const planRouter = Router();
  * @description 할 일 조회
  */
 planRouter.get(
-  "/:memberId",
+  "/:member_id",
   async (req: Request, res: Response, next: NextFunction) => {
-    const { memberId } = req.params;
+    const { member_id } = req.params;
     const { year, month } = req.query;
 
-    if (!memberId) {
+    if (!member_id) {
       next({
         status: ErrorCode.INVALID_ARGUMENT,
         data: ErrorMessage[ErrorCode.INVALID_ARGUMENT],
@@ -30,7 +30,7 @@ planRouter.get(
           [Op.and]: [
             where(fn("year", col("register_date")), year),
             where(fn("month", col("register_date")), month),
-            { member_id: memberId },
+            { member_id },
           ],
         },
       });
@@ -76,6 +76,69 @@ planRouter.post(
       });
     } catch (error) {
       next({ status: ErrorCode.ERR_INSERT_DATA_FAIL, data: error });
+    }
+  }
+);
+
+/**
+ * @description 할 일 업데이트
+ */
+planRouter.post(
+  "/update",
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { id, content, member_id, register_date, status } = req.body as TPlan;
+
+    if (!id || !content || !member_id || !register_date || !status) {
+      next({
+        status: ErrorCode.INVALID_ARGUMENT,
+        data: ErrorMessage[ErrorCode.INVALID_ARGUMENT],
+      });
+    }
+
+    try {
+      await DB.plan.update(
+        {
+          content,
+          register_date,
+          status,
+        },
+        { where: { id, member_id } }
+      );
+
+      return res.status(StatusCodes.OK).json({
+        status: StatusCodes.OK,
+        data: { result: true },
+      });
+    } catch (error) {
+      next({ status: ErrorCode.ERR_UPDATE_DATA_FAIL, data: error });
+    }
+  }
+);
+
+/**
+ * @description 할 일 삭제
+ */
+planRouter.post(
+  "/delete/:id",
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+
+    if (!id) {
+      next({
+        status: ErrorCode.INVALID_ARGUMENT,
+        data: ErrorMessage[ErrorCode.INVALID_ARGUMENT],
+      });
+    }
+
+    try {
+      await DB.plan.destroy({ where: { id } });
+
+      return res.status(StatusCodes.OK).json({
+        status: StatusCodes.OK,
+        data: { result: true },
+      });
+    } catch (error) {
+      next({ status: ErrorCode.ERR_DELETE_DATA_FAIL, data: error });
     }
   }
 );
