@@ -86,9 +86,17 @@ planRouter.post(
 planRouter.post(
   "/update",
   async (req: Request, res: Response, next: NextFunction) => {
-    const { id, content, member_id, register_date, status } = req.body as TPlan;
+    const { id, content, member_id, register_date, status, repository } =
+      req.body as TPlan;
 
-    if (!id || !content || !member_id || !register_date || !status) {
+    if (
+      !id ||
+      !content ||
+      !member_id ||
+      !register_date ||
+      status === undefined ||
+      !repository
+    ) {
       next({
         status: ErrorCode.INVALID_ARGUMENT,
         data: ErrorMessage[ErrorCode.INVALID_ARGUMENT],
@@ -99,6 +107,7 @@ planRouter.post(
       await DB.plan.update(
         {
           content,
+          repository,
           register_date,
           status,
         },
