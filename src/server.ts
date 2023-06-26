@@ -3,7 +3,7 @@ import { StatusCodes } from "http-status-codes";
 import logger from "jet-logger";
 import { TMiddleWareError } from "types/common";
 
-import { authRouter, planRouter } from "./api";
+import { authRouter, dashboardRouter, planRouter } from "./api";
 
 const server = express();
 
@@ -15,6 +15,7 @@ server.use(express.json());
  **********************************************************************************/
 server.use("/api/auth", authRouter);
 server.use("/api/plan", planRouter);
+server.use("/api/dashboard", dashboardRouter);
 
 /***********************************************************************************
  *                                  Error handling
